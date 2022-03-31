@@ -1,0 +1,9 @@
+DMA_program.c:16:6:DMA_ChannelInit	16	static
+DMA_program.c:21:6:DMA_ChennelEnable	16	static
+DMA_program.c:26:6:DMA_ChennelDisable	16	static
+DMA_program.c:31:6:DMA_ChennelNumberOfData	16	static
+DMA_program.c:36:6:DMA_ChennelMemAddress	16	static
+DMA_program.c:41:6:DMA_ChennelPeriphAddress	16	static
+DMA_program.c:46:6:DMA_ChennelInterruptEnable	16	static
+DMA_program.c:51:6:DMA_ChennelInterruptDisable	16	static
+DMA_program.c:56:6:DMA_InterruptFlagClear	16	static

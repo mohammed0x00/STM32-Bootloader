@@ -1,0 +1,6 @@
+MTP.c:34:6:MTP_Init	16	static
+MTP.c:63:9:MTP_ReceiveData	40	static
+MTP.c:144:9:MTP_SendData	32	static
+MTP.c:193:5:MTP_CalculateChecksum	24	static
+MTP.c:216:6:DMA1_Channel4_IRQHandler	8	static
+MTP.c:222:6:DMA1_Channel5_IRQHandler	8	static
