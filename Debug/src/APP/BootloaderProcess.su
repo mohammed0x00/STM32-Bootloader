@@ -1,6 +1,0 @@
-Core_interface.h:23:22:__enable_irq	4	static
-Core_interface.h:24:22:__disable_irq	4	static
-BootloaderProcess.c:45:6:Bootloader_Main	8	static
-BootloaderProcess.c:68:6:Command_Process	16	static
-BootloaderProcess.c:150:13:HardwareReset	8	static
-BootloaderProcess.c:164:13:JumpToApp	0	static
