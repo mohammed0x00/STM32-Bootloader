@@ -32,6 +32,7 @@ u8 CMD;
 static void JumpToApp(u32 address, u32 sp) __attribute__((naked));
 static void Command_Process(void);
 static void HardwareReset(void);
+static void Reply(u8 msgID);
 /* Private functions */
 
 /**
@@ -45,9 +46,7 @@ static void HardwareReset(void);
 void Bootloader_Main(void)
 {
 
-	msg.ID = REPLY_READY;
-	msg.length = 0;
-	MTP_SendData(&msg);
+	Reply(REPLY_READY);
 
 	while(1)
 	{
@@ -73,30 +72,22 @@ void Command_Process(void)
 	{
 	case CMD_FLASH_LOCK:
 		Flash_Lock();
-		msg.ID = REPLY_ACK;
-		msg.length = 0;
-		MTP_SendData(&msg);
+		Reply(REPLY_ACK);
 		break;
 
 	case CMD_FLASH_UNLOCK:
 		Flash_Unlock();
-		msg.ID = REPLY_ACK;
-		msg.length = 0;
-		MTP_SendData(&msg);
+		Reply(REPLY_ACK);
 		break;
 
 	case CMD_DATA_WRITE:
 		if(Flash_WriteData((void *)*(u32*)(&(msg.Buffer[0])), &(msg.Buffer[4]), ((msg.length - 4) / 2) +  1) == NO_ERR)
 		{
-			msg.ID = REPLY_ACK;
-			msg.length = 0;
-			MTP_SendData(&msg);
+			Reply(REPLY_ACK);
 		}
 		else
 		{
-			msg.ID = REPLY_ERR_WRITE_DATA;
-			msg.length = 0;
-			MTP_SendData(&msg);
+			Reply(REPLY_ERR_WRITE_DATA);
 		}
 		break;
 
@@ -119,15 +110,11 @@ void Command_Process(void)
 	case CMD_SECTOR_ERASE:
 		if(Flash_ErasePage(*(u32*)(&(msg.Buffer[0]))) == NO_ERR)
 		{
-			msg.ID = REPLY_ACK;
-			msg.length = 0;
-			MTP_SendData(&msg);
+			Reply(REPLY_ACK);
 		}
 		else
 		{
-			msg.ID = REPLY_NACK;
-			msg.length = 0;
-			MTP_SendData(&msg);
+			Reply(REPLY_NACK);
 		}
 		break;
 
@@ -165,4 +152,11 @@ static void JumpToApp(u32 address, u32 sp)
 {
 	__ASM("msr msp, r1");
 	__ASM("bx r0");
+}
+
+static void Reply(u8 msgID)
+{
+	msg.ID = msgID;
+	msg.length = 0;
+	MTP_SendData(&msg);
 }
